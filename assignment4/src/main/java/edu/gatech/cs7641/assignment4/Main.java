@@ -47,13 +47,13 @@ public class Main {
 	 * different problems, but you can add more problems and control which one runs by using this
 	 * constant.
 	 */
-	private static int PROBLEM = 1;
+	private static int PROBLEM = 2;
 
 	/*
 	 * This class runs one algorithm at the time. You can set this constant to the specific
 	 * algorithm you want to run.
 	 */
-	private final static Algorithm algorithm = Algorithm.ValueIteration;
+	private final static Algorithm algorithm = Algorithm.QLearning;
 
 	/*
 	 * If you set this constant to false, the specific GUI showing the grid, rewards, and policy
@@ -74,6 +74,9 @@ public class Main {
 	 */
 	private static boolean USE_LEARNING_EXPERIMENTER = false;
 
+	
+//	private static int NUMBER_OF_ITERATIONS = 400;
+	
 	public static void main(String[] args) {
 
 		/*
@@ -168,7 +171,7 @@ public class Main {
 
 					@Override
 					public Planner createPlanner(int episodeIndex, SADomain domain, HashableStateFactory hashingFactory, SimulatedEnvironment simulatedEnvironment) {
-						QLearning agent = new QLearning(domain, 0.99, hashingFactory, 0.3, 0.1);
+						QLearning agent = new QLearning(domain, 0.99, hashingFactory, 0.1, 0.7);
 						for (int i = 0; i < episodeIndex; i++) {
 							agent.runLearningEpisode(simulatedEnvironment);
 							simulatedEnvironment.resetEnvironment();
@@ -199,6 +202,8 @@ public class Main {
 		SimulatedEnvironment simulatedEnvironment = new SimulatedEnvironment(domain, constantStateGenerator);
 		Planner planner = null;
 		Policy policy = null;
+		
+//		for (int episodeIndex = 1; episodeIndex <= NUMBER_OF_ITERATIONS; episodeIndex++) {
 		for (int episodeIndex = 1; episodeIndex <= problem.getNumberOfIterations(algorithm); episodeIndex++) {
 			long startTime = System.nanoTime();
 			planner = plannerFactory.createPlanner(episodeIndex, domain, hashingFactory, simulatedEnvironment);
@@ -277,14 +282,13 @@ public class Main {
 		 * L — Represents a large hazard. The agent will be penalized.
 		 */
 		String[] map = new String[] {
-				"X0011110",
-				"01000S10",
-				"010M110S",
-				"0M0000M1",
-				"01111010",
-				"00L010S0",
-				"0S001000",
-				"000000SG",
+				"X001110",
+				"010M10S",
+				"0M000M1",
+				"0101000",
+				"0L010S0",
+				"0S01000",
+				"00000SG",
 		};
 
 		/*
@@ -318,25 +322,25 @@ public class Main {
 	private static Problem createProblem2() {
 		String[] map = new String[] {
 				"111111111111111111111",
-				"X00010001000100000101",
-				"101110101L1010S110101",
+				"X0000000L000100000101",
+				"111110101L1010S110101",
 				"100010101000100010101",
 				"11101010101111S110101",
-				"100010100000100000001",
+				"100000100000100000001",
 				"1011101S1010101110101",
-				"100010101010001000101",
+				"10001010M010001000101",
 				"101010101011111010111",
 				"101000001000100010001",
-				"1110101M111010M110101",
+				"1110101L101010S110101",
 				"100010100010100000101",
 				"101110101010101111S01",
 				"100010001010001010001",
-				"111011101010111010111",
+				"111011011010111010111",
 				"101010001010001000101",
 				"10101011101L001011101",
 				"1000001S0000101010001",
 				"101011110110101010101",
-				"10100000001000100010G",
+				"1010000000G0001000100",
 				"111111111111111111111",
 		};
 

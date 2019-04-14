@@ -15,7 +15,6 @@ public class Problem {
 	private List<Hazard> hazards;
 	private HashMap<HazardType, Double> hazardRewards;
 	private HashMap<Algorithm, Integer> numIterations;
-
 	public Problem(String[] map, HashMap<Algorithm, Integer> numIterations, double defaultReward, double goalReward, HashMap<HazardType, Double> hazardRewards) {
 		this.numIterations = numIterations;
 		this.defaultReward = defaultReward;
